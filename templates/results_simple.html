@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados para: {{ term }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buscar.css') }}">
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <h1>Resultados de búsqueda para: {{ term }}</h1>
+    <p><a href="{{ url_for('search', term=term) }}" class="button">Ver información completa</a></p>
+
+    <table>
+        <tr>
+            <th>Titulo</th>
+            <th>Editorial</th>
+            <th>Influencia</th>
+            <th>Cuartil</th>
+            <th>Citas totales en 3 años</th>
+            <th>Más info</th>
+        </tr>
+        {% for result in results %}
+            <tr data-href="{{ url_for('detalle', sourceid=result['Sourceid']) }}">
+                <td>{{ result['Title'] }}</td>
+                <td>{{ result['Publisher']}}</td>
+                <td>{{ result['SJR'] }}</td>
+                <td>{{ result['SJR Best Quartile'] }}</td>
+                <td>{{ result['Total Cites (3years)'] }}</td>
+                <td>
+                    <a href="{{ url_for('detalle', sourceid=result['Sourceid']) }}">Más información</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <footer>
+        {% include 'footer.html' %}
+    </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var rows = document.querySelectorAll("tr[data-href]");
+        rows.forEach(function(row) {
+            row.addEventListener("click", function() {
+                window.location.href = this.dataset.href;
+            });
+        });
+    });
+</script>
+</body>
+</html>

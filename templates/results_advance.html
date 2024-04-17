@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados para: {{ term }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buscar.css') }}">
+</head>
+<body>
+    {% include 'header.html' %}
+    <h1>Resultados de búsqueda para: {{ term }}</h1>
+    <p><a href="{{ url_for('search_test', term=term) }}" class="button">View Simplified Results</a></p>
+    <table>
+        <tr>
+            {% for header in "Rank;Sourceid;Title;Type;Issn;SJR;SJR Best Quartile;H index;Total Docs. (2023);Total Docs. (3years);Total Refs.;Total Cites (3years);Citable Docs. (3years);Cites / Doc. (2years);Ref. / Doc.;Country;Region;Publisher;Coverage;Categories;Areas".split(';') %}
+                <th>{{ header }}</th>
+            {% endfor %}
+            <th>Further Info</th> <!-- New header -->
+        </tr>
+        {% for result in results %}
+            <tr data-href="{{ url_for('detalle', sourceid=result['Sourceid']) }}">
+                {% for field in "Rank;Sourceid;Title;Type;Issn;SJR;SJR Best Quartile;H index;Total Docs. (2023);Total Docs. (3years);Total Refs.;Total Cites (3years);Citable Docs. (3years);Cites / Doc. (2years);Ref. / Doc.;Country;Region;Publisher;Coverage;Categories;Areas".split(';') %}
+                <td>{{ result[field] }}</td>
+                {% endfor %}
+                <td>
+                    <a href="{{ url_for('detalle', sourceid=result['Sourceid']) }}">Más información</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% include 'footer.html' %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var rows = document.querySelectorAll("tr[data-href]");
+        rows.forEach(function(row) {
+            row.addEventListener("click", function() {
+                window.location.href = this.dataset.href;
+            });
+        });
+    });
+</script>
+<script>
+    //Get the button
+    var mybutton = document.getElementById("topBtn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+</script>
+</body>
+</html>
