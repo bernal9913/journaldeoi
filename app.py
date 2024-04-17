@@ -2,10 +2,11 @@ import csv
 import os
 import time
 import pandas as pd
+import random
 
 import requests
 import schedule
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from string import ascii_uppercase
 
 app = Flask(__name__)
@@ -171,7 +172,6 @@ def country_details():
     else:
         return render_template('not_steph.html'), 404
 
-
 @app.route('/search_advance', methods=['GET', 'POST'])
 def search():
     if request.method == 'GET':
@@ -201,12 +201,22 @@ def detalle():
                 detalle_articulo = row
                 break
     print(f"detalle_articulo: {detalle_articulo}")  # print the detalle_articulo
-    return render_template('detalle.html', detalle_articulo=detalle_articulo)
-
+    if detalle_articulo:  # Check if detalle_articulo is not None
+        return render_template('detalle.html', detalle_articulo=detalle_articulo)
+    else:
+        return render_template('not_steph.html'), 404
 @app.route('/revista/<sourceid>')
 def detalle_revista(sourceid):
     detalle_articulo = obtener_detalle_articulo(sourceid)  # Función para obtener los detalles del artículo del CSV
     return render_template('detalle.html', detalle_articulo=detalle_articulo)
+@app.route("/revista-random")
+def revista_random():
+    # Genera un número aleatorio entre 1 y 10,000
+    random_sourceid = str(random.randint(1, 100000))
+    print(f"random_sourceid: {random_sourceid}")
+    # Redirige al usuario a la página de detalle con el sourceid aleatorio
+    return redirect(url_for("detalle", sourceid=random_sourceid))
+
 @app.route('/acercade', methods=['GET'])
 def acercade():
     return render_template('acercade.html')
@@ -254,6 +264,30 @@ def search_test():
 
                 results.append(row)
     return render_template('results_simple.html', results=results, term=term)
+
+@app.route('/explorar', methods=['GET'])
+def explorar():
+    return render_template('explorar.html')
+@app.route('/categorias', methods=['GET'])
+def categorias():
+    with open ('journal.csv', 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f, delimiter=';')
+        categorias = []
+        for row in reader:
+            if row['Categories'] not in categorias:
+                categorias.append(row['Categories'])
+    return render_template('categorias.html', categories = categorias)
+@app.route('/filter')
+def filter_categories():
+    category = request.args.get('category')
+    print(f"category: {category}")
+    results = []
+    with open('journal.csv', 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f, delimiter=';')
+        for row in reader:
+            if category in row['Categories']:
+                results.append(row)
+    return render_template('results_simple.html', results=results, term=category)
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('not_steph.html'), 404
