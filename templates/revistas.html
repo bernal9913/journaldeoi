@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revistas con la palabra "{{ palabra }}"</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buscar.css') }}">
+</head>
+<body>
+{% include 'header.html' %}
+    <h1>Revistas con la palabra "{{ palabra }}" (letra {{ letra }}):</h1>
+    <table>
+        <tr>
+            <th>Título</th>
+            <th>Editorial</th>
+            <th>Factor de Impacto</th>
+        </tr>
+        {% for revista in revistas %}
+            <tr>
+                <td><a href="/revista/{{ revista['Sourceid'] }}">{{ revista['Title'] }}</a></td>
+                <td>{{ revista['Publisher'] }}</td>
+                <td>{{ revista['SJR'] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% include 'footer.html' %}
+</body>
+</html>
