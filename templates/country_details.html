@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <!-- Encabezados del documento, enlaces a estilos CSS, etc. -->
+    <title>Resultados de: {{ country_details['Country/Territory'] }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buscar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/country_details.css') }}">
 </head>
 <body>
 {% include 'header.html' %}
@@ -9,11 +11,11 @@
         <h1>Detalles del país: {{ country_details['Country/Territory'] }}</h1>
         <h2>Información del país</h2>
         <ul>
-            <li>Capital: {{ country_details['Capital'] }}</li>
-            <li>Continente: {{ country_details['Continent'] }}</li>
-            <li>Población: {{ country_details['2022 Population'] }}</li>
-            <li>Extensión: {{ country_details['Area (km²)']  }}</li>
-            <li>Porcentaje de población global: {{ country_details['World Population Percentage'] }}</li>
+            <li><Strong>Capital: </Strong>{{ country_details['Capital'] }}</li>
+            <li><Strong>Continente: </Strong>{{ country_details['Continent'] }}</li>
+            <li><Strong>Población: </Strong>{{ country_details['2022 Population'] }}</li>
+            <li><Strong>Extensión: </Strong>{{ country_details['Area (km²)']  }}</li>
+            <li><Strong>Porcentaje de población global:</Strong> {{ country_details['World Population Percentage'] }}%</li>
         </ul>
         <p>Información obtenida de <a href="https://worldpopulationreview.com/">https://worldpopulationreview.com/ </a></p>
         <h2>Primeras 100 revistas de {{ country_details['Country/Territory'] }}</h2>
