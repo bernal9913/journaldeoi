@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Navegación</title>
+    <style>
+        /* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1, h3 {
+    color: #333;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Estilos del menú de navegación */
+ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+ul li a:hover {
+    color: #007bff; /* Cambia de color al pasar el ratón */
+}
+
+/* Estilos de la barra de búsqueda */
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.search-bar input[type="text"] {
+    width: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+    background-color: #0056b3; /* Cambia de color al pasar el ratón */
+}
+
+
+    </style>
+</head>
+<body>
+{% include 'header.html' %}
+<div class="container">
+    <h1>Menú de Navegación</h1>
+    <h3>Usa nuestra busqueda sencilla!</h3>
+    <div class="search-bar">
+        <form action="/search" method="post">
+            <input type="text" name="search_term" placeholder="Buscar...">
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+    <h3>Ó usa nuestra busqueda avanzada!</h3>
+    <div class="search-bar">
+        <form action="/search_advance" method="post">
+            <input type="text" name="search_term" placeholder="Buscar con todos los poderes">
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+    <ul>
+        <li><a href="/abecedario">Abecedario</a></li>
+        <li><a href="/paises">Ranking de Países</a></li>
+        <li><a href="/categorias">Categorias</a></li>
+        <li><a href="/acerca-de">Acerca de</a></li>
+        <li><a href="/contacto">Contacto</a></li>
+        <li><a href="/revista-random">Revista Random</a></li>
+    </ul>
+
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

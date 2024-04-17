@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorías Disponibles</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buscar.css') }}">
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .box {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .content-li {
+            margin-bottom: 10px;
+        }
+
+        .content-li a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .content-li a:hover {
+            color: #0056b3;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
+
+</head>
+<body>
+{% include 'header.html' %}
+    <div class="container">
+        <div class="box">
+            <h1>Categorías Disponibles</h1>
+                <ul>
+                    {% for category in categories %}
+                        <li><a href="/filter?category={{ category }}">{{ category }}</a></li>
+                    {% endfor %}
+                </ul>
+        </div>
+    </div>
+{% include 'footer.html' %}
+</body>
+</html>
