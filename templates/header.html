@@ -1,17 +1,134 @@
-<header>
-    <div class="logo">
-        <img src="logobelico1.png" alt="Logo">
-    </div>
-    <nav>
-        <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Acerca de</a></li>
-            <li><a href="#">Servicios</a></li>
-            <li><a href="#">Contacto</a></li>
-        </ul>
-    </nav><!--
-    <div class="search-bar">
-        <input type="text" placeholder="Buscar...">
-        <button type="submit">Buscar</button>
-    </div>-->
-</header>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa; /* Color de fondo */
+        }
+
+        header {
+            background-color: #343a40; /* Color de fondo */
+            padding: 10px 0;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+        }
+
+        .logo img {
+            height: 40px;
+            margin-left: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.3s;
+            padding: 10px 15px; /* Espacio alrededor del texto */
+            border-radius: 5px; /* Bordes redondeados */
+        }
+
+        nav ul li a:hover {
+            background-color: #ff9900; /* Color de fondo al pasar el mouse */
+            color: #fff; /* Color del texto al pasar el mouse */
+        }
+
+        .search-bar {
+            margin-right: 20px;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        .search-bar button {
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+        .hide-header {
+            top: -100px;
+            transition: top 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="/">
+                <img src="../static/_ba632275-fc4c-49a4-8cf2-8ced9ca6b1cf.jpeg" alt="Logo">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/acercade">Acerca de</a></li>
+                <li><a href="#">Servicios</a></li>
+                <li><a href="/contacto">Contacto</a></li>
+            </ul>
+        </nav>
+        <!-- Add a search bar -->
+        <div class="search-bar">
+            <form action="/search" method="post">
+                <input type="text" name="search_term" placeholder="Buscar...">
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
+    </header>
+    <div style="margin-top: 70px;"></div> <!-- Esto es para evitar que el contenido se oculte detrás del header fijo -->
+<script>
+    var lastScrollTop = 0;
+    var header = document.querySelector("header");
+
+    window.addEventListener("scroll", function() {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop) {
+            // Downscroll, hide header
+            header.classList.add("hide-header");
+        } else {
+            // Upscroll, show header
+            header.classList.remove("hide-header");
+        }
+        lastScrollTop = scrollTop;
+    });
+</script>
+</body>
+</html>
