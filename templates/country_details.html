@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Encabezados del documento, enlaces a estilos CSS, etc. -->
+</head>
+<body>
+{% include 'header.html' %}
+    <div class="container">
+        <h1>Detalles del país: {{ country_details['Country/Territory'] }}</h1>
+        <h2>Información del país</h2>
+        <ul>
+            <li>Capital: {{ country_details['Capital'] }}</li>
+            <li>Continente: {{ country_details['Continent'] }}</li>
+            <li>Población: {{ country_details['2022 Population'] }}</li>
+            <li>Extensión: {{ country_details['Area (km²)']  }}</li>
+            <li>Porcentaje de población global: {{ country_details['World Population Percentage'] }}</li>
+        </ul>
+        <p>Información obtenida de <a href="https://worldpopulationreview.com/">https://worldpopulationreview.com/ </a></p>
+        <h2>Primeras 100 revistas de {{ country_details['Country/Territory'] }}</h2>
+        <table>
+        <tr>
+            <th>Titulo</th>
+            <th>Editorial</th>
+            <th>Influencia</th>
+            <th>Cuartil</th>
+            <th>Citas totales en 3 años</th>
+            <th>Más info</th>
+        </tr>
+        {% for result in country_journals %}
+            <tr data-href="{{ url_for('detalle', sourceid=result['Sourceid']) }}">
+                <td>{{ result['Title'] }}</td>
+                <td>{{ result['Publisher']}}</td>
+                <td>{{ result['SJR'] }}</td>
+                <td>{{ result['SJR Best Quartile'] }}</td>
+                <td>{{ result['Total Cites (3years)'] }}</td>
+                <td>
+                    <a href="{{ url_for('detalle', sourceid=result['Sourceid']) }}">Más información</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    </div>
+{% include 'footer.html' %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var rows = document.querySelectorAll("tr[data-href]");
+        rows.forEach(function(row) {
+            row.addEventListener("click", function() {
+                window.location.href = this.dataset.href;
+            });
+        });
+    });
+</script>
+<script>
+    //Get the button
+    var mybutton = document.getElementById("topBtn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+</script>
+</body>
+</html>
