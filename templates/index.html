@@ -3,13 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Page</title>
+    <title>Buscador?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .block {
+            background-color: #f1f1f1;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Search Page</h1>
-    <form action="/search" method="post">
-        <input type="text" name="search_term" placeholder="Enter title...">
-        <button type="submit">Search</button>
-    </form>
+    {% include 'header.html' %}
+    <div class="container">
+        <h1>Bienvenidos a este buscador de revistas</h1>
+        <p>En este sitio web, puedes encontrar una amplia variedad de revistas académicas y científicas. Utiliza nuestro buscador para encontrar información sobre tus temas de interés.</p>
+
+        <div class="block">
+            <h2>Revistas destacadas</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis justo nec urna bibendum, ac tincidunt eros sagittis.</p>
+            <p>Nulla facilisi. Proin tincidunt, augue vitae laoreet venenatis, libero turpis mollis justo, eget interdum libero nibh ut felis.</p>
+        </div>
+        <div class="block">
+            <h2>Revistas principales por Influencia</h2>
+            <ol>
+                {% for journal in top_journals %}
+                    <li>
+                        <a href="{{ url_for('detalle', sourceid=journal['Source ID']) }}">{{ journal['Title'] }}  - {{ journal['Publisher'] }}</a>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="block">
+            <h2>Principales paises contribuidores</h2>
+            <ol>
+                {% for country in countries %}
+                    <li>
+                    <a href="{{ url_for('country_details', country=country['Country']) }}">{{ country['Country'] }} - {{ country['Documents'] }}</a>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="block">
+            <h2>Últimas noticias</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis justo nec urna bibendum, ac tincidunt eros sagittis.</p>
+            <p>Nulla facilisi. Proin tincidunt, augue vitae laoreet venenatis, libero turpis mollis justo, eget interdum libero nibh ut felis.</p>
+        </div>
+
+        <div class="block">
+            <h2>Artículos populares</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis justo nec urna bibendum, ac tincidunt eros sagittis.</p>
+            <p>Nulla facilisi. Proin tincidunt, augue vitae laoreet venenatis, libero turpis mollis justo, eget interdum libero nibh ut felis.</p>
+        </div>
+    </div>
+    {% include 'footer.html' %}
 </body>
 </html>
